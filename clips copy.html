@@ -157,32 +157,32 @@
       </div>
     
     <div id="video-container">
-            <video src="clips/01environments04.mp4" class="active" loop muted autoplay preload="auto"></video>
-            <video src="clips/02environments06.mp4" loop muted autoplay preload="auto"></video>
-            <video src="clips/03environments02.mp4" loop muted autoplay preload="auto"></video>
-            <video src="clips/04environments05.mp4" loop muted autoplay preload="auto"></video>
-            <video src="clips/05environments03.mp4" loop muted autoplay preload="auto"></video>
-            <video src="clips/06environments01.mp4" loop muted autoplay preload="auto"></video>
-            <video src="clips/07Growth01a.mp4" loop muted autoplay preload="auto"></video>
-            <video src="clips/08origfibo01.mp4" loop muted autoplay preload="auto"></video>
-            <video src="clips/09growth04.mp4" loop muted autoplay preload="auto"></video>
-            <video src="clips/10Growth05.mp4" loop muted autoplay preload="auto"></video>
-            <video src="clips/11rocks1a.mp4" loop muted autoplay preload="auto"></video>
-            <video src="clips/12ball4a.mp4" loop muted autoplay preload="auto"></video>
-            <video src="clips/13starplant2.mp4" loop muted autoplay preload="auto"></video>
-            <video src="clips/14cave flower3a.mp4" loop muted autoplay preload="auto"></video>
-            <video src="clips/15spagetti1a.mp4" loop muted autoplay preload="auto"></video>
-            <video src="clips/16nest growth1.mp4" loop muted autoplay preload="auto"></video>
-            <video src="clips/17medusa_scene2.mp4" loop muted autoplay preload="auto"></video>
-            <video src="clips/18fibo31b.mp4" loop muted autoplay preload="auto"></video>
-            <video src="clips/19toothpicks1.mp4" loop muted autoplay preload="auto"></video>
-            <video src="clips/20ice-flowers02.mp4" loop muted autoplay preload="auto"></video>
-            <video src="clips/21divided trunk_3a.mp4" loop muted autoplay preload="auto"></video>
-            <video src="clips/22weird flower1.mp4" loop muted autoplay preload="auto"></video>
-            <video src="clips/23tube flower6.mp4" loop muted autoplay preload="auto"></video>
-            <video src="clips/24flyover1.mp4" loop muted autoplay preload="auto"></video>
-            <video src="clips/25trunks1.mp4" loop muted autoplay preload="auto"></video>
-            <video src="clips/26pillars1.mp4" loop muted autoplay preload="auto"></video>
+            <video src="clips/01environments04.mp4" class="active" loop muted autoplay></video>
+            <video src="clips/02environments06.mp4" loop muted autoplay></video>
+            <video src="clips/03environments02.mp4" loop muted autoplay></video>
+            <video src="clips/04environments05.mp4" loop muted autoplay></video>
+            <video src="clips/05environments03.mp4" loop muted autoplay></video>
+            <video src="clips/06environments01.mp4" loop muted autoplay></video>
+            <video src="clips/07Growth01a.mp4" loop muted autoplay></video>
+            <video src="clips/08origfibo01.mp4" loop muted autoplay></video>
+            <video src="clips/09growth04.mp4" loop muted autoplay></video>
+            <video src="clips/10Growth05.mp4" loop muted autoplay></video>
+            <video src="clips/11rocks1a.mp4" loop muted autoplay></video>
+            <video src="clips/12ball4a.mp4" loop muted autoplay></video>
+            <video src="clips/13starplant2.mp4" loop muted autoplay></video>
+            <video src="clips/14cave flower3a.mp4" loop muted autoplay></video>
+            <video src="clips/15spagetti1a.mp4" loop muted autoplay></video>
+            <video src="clips/16nest growth1.mp4" loop muted autoplay></video>
+            <video src="clips/17medusa_scene2.mp4" loop muted autoplay></video>
+            <video src="clips/18fibo31b.mp4" loop muted autoplay></video>
+            <video src="clips/19toothpicks1.mp4" loop muted autoplay></video>
+            <video src="clips/20ice-flowers02.mp4" loop muted autoplay></video>
+            <video src="clips/21divided trunk_3a.mp4" loop muted autoplay></video>
+            <video src="clips/22weird flower1.mp4" loop muted autoplay></video>
+            <video src="clips/23tube flower6.mp4" loop muted autoplay></video>
+            <video src="clips/24flyover1.mp4" loop muted autoplay></video>
+            <video src="clips/25trunks1.mp4" loop muted autoplay></video>
+            <video src="clips/26pillars1.mp4" loop muted autoplay></video>
     </div>
 
     <div id="scene-controls">
@@ -305,59 +305,6 @@
                 el.style.opacity = opacity;
             });
         });
-
-        const videoSources = [
-            'clips/01environments04.mp4',
-            'clips/02environments06.mp4',
-            'clips/03environments02.mp4',
-            'clips/04environments05.mp4',
-            'clips/05environments03.mp4',
-            'clips/06environments01.mp4',
-            'clips/07Growth01a.mp4',
-            'clips/08origfibo01.mp4',
-            'clips/09growth04.mp4',
-            'clips/10Growth05.mp4',
-            'clips/11rocks1a.mp4',
-            'clips/12ball4a.mp4',
-            'clips/13starplant2.mp4',
-            'clips/14cave flower3a.mp4',
-            'clips/15spagetti1a.mp4',
-            'clips/16nest growth1.mp4',
-            'clips/17medusa_scene2.mp4',
-            'clips/18fibo31b.mp4',
-            'clips/19toothpicks1.mp4',
-            'clips/20ice-flowers02.mp4',
-            'clips/21divided trunk_3a.mp4',
-            'clips/22weird flower1.mp4',
-            'clips/23tube flower6.mp4',
-            'clips/24flyover1.mp4',
-            'clips/25trunks1.mp4',
-            'clips/26pillars1.mp4'
-        ];
-
-        function preloadVideos() {
-            videoSources.forEach(src => {
-                const video = document.createElement('video');
-                video.src = src;
-                video.preload = 'auto';
-                video.load();
-            });
-        }
-
-        // Call this function when the page loads
-        window.addEventListener('load', preloadVideos);
-
-        // Modify the existing playVideo function
-        function playVideo(videoElement) {
-            if (currentVideo) {
-                currentVideo.pause();
-                currentVideo.currentTime = 0;
-            }
-            currentVideo = videoElement;
-            videoElement.play().catch(error => {
-                console.error('Error playing video:', error);
-            });
-        }
     </script>
 </body>
 </html>
