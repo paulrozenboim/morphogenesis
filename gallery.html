@@ -55,16 +55,25 @@
         position: relative;
         width: 90%;
         height: 90%;
-        margin: 2% auto;
+        margin: 5% auto;
+        display: flex;
+        flex-direction: column;
     }
     .close-popup {
         position: absolute;
-        top: -30px;
-        right: 0;
+        top: 10px;
+        right: 10px;
         color: white;
         font-size: 30px;
         cursor: pointer;
         z-index: 102;
+        background-color: rgba(0, 0, 0, 0.5);
+        width: 40px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
     }
     #popup-viewer {
         width: 100%;
