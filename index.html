@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UNIVERSUM: RD-CH3.57 - Welcome</title>
+    <title>UNIVERSA MORPHOGENESIS</title>
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
     <style>
         body, html {
@@ -25,6 +25,14 @@
             justify-content: center;
             align-items: center;
         }
+
+        #planet-container.zoom {
+        transform: scale(5);
+        opacity: 0;
+    }
+        #planet-container a {
+        cursor: pointer;
+    }
         model-viewer {
             width: 100%;
             height: 100%;
@@ -60,8 +68,9 @@
     .down-arrow:hover {
         opacity: 1;
     }
-    #planet-container a {
-        cursor: pointer;
+    .fade-out {
+        opacity: 0;
+        transition: opacity 1s ease-in-out;
     }
     </style>
 </head>
@@ -103,6 +112,24 @@
 
             downArrow.style.opacity = opacity;
         });
-    </script>
+    
+        const planetContainer = document.getElementById('planet-container');
+    const titleContainer = document.getElementById('title-container');
+    const downArrow = document.querySelector('.down-arrow');
+
+    function zoomAndNavigate(event, url) {
+        event.preventDefault();
+        planetContainer.classList.add('zoom');
+        titleContainer.classList.add('fade-out');
+        downArrow.classList.add('fade-out');
+        
+        setTimeout(() => {
+            window.location.href = url;
+        }, 1000);
+    }
+
+    planetContainer.querySelector('a').onclick = (e) => zoomAndNavigate(e, 'intro.html');
+    downArrow.onclick = (e) => zoomAndNavigate(e, 'intro.html');
+</script>
 </body>
 </html>
