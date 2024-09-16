@@ -26,10 +26,7 @@
             align-items: center;
         }
 
-        #planet-container.zoom {
-        transform: scale(5);
-        opacity: 0;
-    }
+
         #planet-container a {
         cursor: pointer;
     }
@@ -68,10 +65,7 @@
     .down-arrow:hover {
         opacity: 1;
     }
-    .fade-out {
-        opacity: 0;
-        transition: opacity 1s ease-in-out;
-    }
+
     </style>
 </head>
 <body>
@@ -114,22 +108,15 @@
         });
     
         const planetContainer = document.getElementById('planet-container');
-    const titleContainer = document.getElementById('title-container');
+        const titleContainer = document.getElementById('title-container');
    
-
-    function zoomAndNavigate(event, url) {
-        event.preventDefault();
-        planetContainer.classList.add('zoom');
-        titleContainer.classList.add('fade-out');
-        downArrow.classList.add('fade-out');
-        
-        setTimeout(() => {
+        function navigateTo(event, url) {
+            event.preventDefault();
             window.location.href = url;
-        }, 1000);
-    }
+        }
 
-    planetContainer.querySelector('a').onclick = (e) => zoomAndNavigate(e, 'intro.html');
-    downArrow.onclick = (e) => zoomAndNavigate(e, 'intro.html');
-</script>
+        planetContainer.querySelector('a').onclick = (e) => navigateTo(e, 'intro.html');
+        downArrow.onclick = (e) => navigateTo(e, 'intro.html');
+    </script>
 </body>
 </html>
