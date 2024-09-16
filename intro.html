@@ -87,11 +87,28 @@
         .scene-dot:hover {
             background-color: rgba(255, 255, 255, 0.7);
         }
+        .home-dot {
+        position: absolute;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.5);
+        transition: all 0.3s ease;
+        z-index: 100;
+    }
+    .home-dot:hover {
+        background-color: rgba(255, 255, 255, 0.9);
+        transform: translateX(-50%) scale(1.2);
+    }
     </style>
 </head>
 <body>
+    <a href="index.html" class="home-dot"></a>
+    
     <div id="title-container">
-        <h1>UNIVERSA MORPHOGENESIS</h1>
         <h2>UNIVERSUM: RD-CH3.57</h2>
         <button id="play-button">
             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24">
@@ -104,7 +121,7 @@
 
     <div id="scene-controls">
         <span class="scene-dot active"></span>
-        <a href="web tv_v1.html" class="scene-dot"></a>
+        <a href="clips.html" class="scene-dot"></a>
         <a href="outro.html" class="scene-dot"></a>
     </div>
 
@@ -113,6 +130,7 @@
         const playButton = document.getElementById('play-button');
         const titleContainer = document.getElementById('title-container');
         const sceneControls = document.getElementById('scene-controls');
+        const homeDot = document.querySelector('.home-dot');
 
         function startVideo() {
             video.play().then(() => {
@@ -151,6 +169,20 @@
             opacity = Math.min(Math.max(opacity, 0.1), 1);
 
             sceneControls.style.opacity = opacity;
+        
+            const homeRect = homeDot.getBoundingClientRect();
+            const homeCenterX = homeRect.left + homeRect.width / 2;
+            const homeCenterY = homeRect.top + homeRect.height / 2;
+            
+            const homeDistance = Math.sqrt(
+                Math.pow(e.clientX - homeCenterX, 2) + 
+                Math.pow(e.clientY - homeCenterY, 2)
+            );
+
+            let homeOpacity = 1 - (homeDistance / fadeDistance);
+            homeOpacity = Math.min(Math.max(homeOpacity, 0.1), 1);
+
+            homeDot.style.opacity = homeOpacity;
         });
     </script>
 </body>

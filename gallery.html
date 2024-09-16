@@ -80,9 +80,30 @@
         height: 100%;
         z-index: 101;
     }
-</style>
+    .up-arrow {
+        position: absolute;
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 40px;
+        height: 40px;
+        cursor: pointer;
+        z-index: 200;
+        transition: transform 0.3s ease;
+        opacity: 0.1;
+    }
+    .up-arrow:hover {
+            transform: translateX(-50%) scale(1.2);
+        }
+    </style>
 </head>
 <body>
+    <a href="clips.html" class="up-arrow">
+        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" >
+            <path stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m5 15 7-7 7 7"/>
+          </svg>   
+             </a>
+
     <div id="gallery">
         <div class="cell">
             <span class="toggle-icon">⛶</span>
@@ -211,6 +232,27 @@
             }
         });
     
+        const fadeDistance = 200; // Define the fade distance
+
+document.addEventListener('mousemove', (e) => {
+    const elements = [popup, document.querySelector('.up-arrow')];
+    elements.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        
+        const distance = Math.sqrt(
+            Math.pow(e.clientX - centerX, 2) + 
+            Math.pow(e.clientY - centerY, 2)
+        );
+
+        let opacity = 1 - (distance / fadeDistance);
+        opacity = Math.min(Math.max(opacity, 0.1), 1); // Clamp between 0.1 and 1
+
+        el.style.opacity = opacity;
+    });
+});
+
         closePopup.addEventListener('click', () => {
             popup.style.display = 'none';
         });
