@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UNIVERSUM: Intro</title>
+    <title>UNIVERSUM: RD-CH3.57</title>
     <style>
         body, html {
             margin: 0;
@@ -87,27 +87,30 @@
         .scene-dot:hover {
             background-color: rgba(255, 255, 255, 0.7);
         }
-        .home-dot {
+
+    .up-arrow {
         position: absolute;
-        top: 20px;
+        top: 10px;
         left: 50%;
         transform: translateX(-50%);
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        background-color: rgba(255, 255, 255, 0.5);
-        transition: all 0.3s ease;
-        z-index: 100;
+        width: 40px;
+        height: 40px;
+        cursor: pointer;
+        z-index: 200;
+        transition: transform 0.3s ease;
+        opacity: 0.1;
     }
-    .home-dot:hover {
-        background-color: rgba(255, 255, 255, 0.9);
-        transform: translateX(-50%) scale(1.2);
-    }
+    .up-arrow:hover {
+            transform: translateX(-50%) scale(1.2);
+        }
     </style>
 </head>
 <body>
-    <a href="index.html" class="home-dot"></a>
-    
+    <a href="index.html" class="up-arrow">
+        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" >
+            <path stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m5 15 7-7 7 7"/>
+          </svg>   
+             </a>
     <div id="title-container">
         <h2>UNIVERSUM: RD-CH3.57</h2>
         <button id="play-button">
