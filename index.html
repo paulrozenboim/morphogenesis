@@ -60,6 +60,9 @@
     .down-arrow:hover {
         opacity: 1;
     }
+    #planet-container a {
+        cursor: pointer;
+    }
     </style>
 </head>
 <body>
@@ -67,14 +70,16 @@
         <h1>UNIVERSA MORPHOGENESIS</h1>
     </div>
     <div id="planet-container">
-    <model-viewer src="3d-objects/planet1.glb" 
-        ios-src="3d-objects/planet1.usdz" 
-        auto-rotate 
-        background-color="black" 
-        exposure="0.7" 
-        shadow-intensity="1" 
-        alt="3D model of a Planet">
-    </model-viewer>
+        <a href="intro.html">
+            <model-viewer src="3d-objects/planet1.glb" 
+                ios-src="3d-objects/planet1.usdz" 
+                auto-rotate 
+                background-color="black" 
+                exposure="0.7" 
+                shadow-intensity="1" 
+                alt="3D model of a Planet">
+            </model-viewer>
+        </a>
     </div>
 
     <a href="intro.html" class="down-arrow"></a>
