@@ -21,7 +21,7 @@
         #planet-container {
             width: 100%;
             height: 100%;
-            display: flex;
+            display: auto;
             justify-content: center;
             align-items: center;
         }
@@ -78,5 +78,26 @@
     </div>
 
     <a href="intro.html" class="down-arrow"></a>
+
+    <script>
+        const downArrow = document.querySelector('.down-arrow');
+        const fadeDistance = 200;
+
+        document.addEventListener('mousemove', (e) => {
+            const rect = downArrow.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            
+            const distance = Math.sqrt(
+                Math.pow(e.clientX - centerX, 2) + 
+                Math.pow(e.clientY - centerY, 2)
+            );
+
+            let opacity = 1 - (distance / fadeDistance);
+            opacity = Math.min(Math.max(opacity, 0.1), 1);
+
+            downArrow.style.opacity = opacity;
+        });
+    </script>
 </body>
 </html>
