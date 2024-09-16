@@ -71,6 +71,19 @@
             height: 100%;
             z-index: 101;
         }
+        .scale-controls {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 5px 10px;
+            border-radius: 5px;
+            color: white;
+        }
+        #scale-slider {
+            width: 200px;
+        }
     </style>
 </head>
 <body>
@@ -182,9 +195,15 @@
         <div class="popup-content">
             <span class="close-popup">&times;</span>
             <model-viewer id="popup-viewer" auto-rotate camera-controls background-color="black" exposure="0.5"
-            ar ar-modes="scene-viewer quick-look webxr"
-            ar-scale="fixed"
-            ar-placement="floor"></model-viewer>
+                ar ar-modes="scene-viewer quick-look webxr"
+                ar-scale="fixed"
+                ar-placement="floor"
+                style="width: 50vw; height: 50vh; max-width: 50vw; max-height: 50vh;">
+            </model-viewer>
+            <div class="scale-controls">
+                <label for="scale-slider">Scale: </label>
+                <input type="range" id="scale-slider" min="0.1" max="2" step="0.1" value="1">
+            </div>
         </div>
     </div>
 
@@ -193,12 +212,16 @@
         const popup = document.querySelector('.popup');
         const popupViewer = document.getElementById('popup-viewer');
         const closePopup = document.querySelector('.close-popup');
+        const scaleSlider = document.getElementById('scale-slider');
 
         gallery.addEventListener('click', (e) => {
             if (e.target.classList.contains('toggle-icon')) {
                 const modelViewer = e.target.nextElementSibling;
                 popupViewer.src = modelViewer.src;
                 popup.style.display = 'block';
+                // Reset scale to 1 when opening a new model
+                scaleSlider.value = 1;
+                popupViewer.scale = '1 1 1';
             }
         });
 
@@ -211,6 +234,11 @@
             if (e.target === popup) {
                 popup.style.display = 'none';
             }
+        });
+
+        scaleSlider.addEventListener('input', (e) => {
+            const scale = e.target.value;
+            popupViewer.scale = `${scale} ${scale} ${scale}`;
         });
     </script>
 </body>
