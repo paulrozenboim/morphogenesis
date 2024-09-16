@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNIVERSUM: Intro</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-family: 'Courier New', Courier, monospace;
+            background-color: black;
+        }
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+        #title-container {
+            text-align: center;
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+        h2 {
+            font-size: 1.5em;
+            margin-top: 0;
+            font-weight: 300;
+        }
+        #play-button {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            padding: 0;
+            margin: 0;
+        }
+        #play-button:hover {
+            transform: scale(1.2);
+        }
+        #play-button svg {
+            width: 40px;
+            height: 40px;
+            display: block;
+        }
+        #scene-controls {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 10;
+            opacity: 0.1;
+            transition: opacity 0.3s ease;
+        }
+        .scene-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            transition: all 0.3s ease;
+        }
+        .scene-dot.active {
+            width: 14px;
+            height: 14px;
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+        .scene-dot:hover {
+            background-color: rgba(255, 255, 255, 0.7);
+        }
+    </style>
+</head>
+<body>
+    <div id="title-container">
+        <h1>UNIVERSA MORPHOGENESIS</h1>
+        <h2>UNIVERSUM: RD-CH3.57</h2>
+        <button id="play-button">
+            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16.881V7.119a1 1 0 0 1 1.636-.772l5.927 4.881a1 1 0 0 1 0 1.544l-5.927 4.88A1 1 0 0 1 8 16.882Z"/>
+            </svg>
+        </button>
+    </div>
+
+    <video id="bgVideo" src="clips/00Intro.mp4"></video>
+
+    <div id="scene-controls">
+        <span class="scene-dot active"></span>
+        <a href="web tv_v1.html" class="scene-dot"></a>
+        <a href="outro.html" class="scene-dot"></a>
+    </div>
+
+    <script>
+        const video = document.getElementById('bgVideo');
+        const playButton = document.getElementById('play-button');
+        const titleContainer = document.getElementById('title-container');
+        const sceneControls = document.getElementById('scene-controls');
+
+        function startVideo() {
+            video.play().then(() => {
+                console.log("Video started playing");
+                titleContainer.style.display = 'none';
+            }).catch(error => {
+                console.error("Error playing video:", error);
+            });
+        }
+
+        playButton.addEventListener('click', startVideo);
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+                startVideo();
+            }
+        });
+
+        video.addEventListener('ended', () => {
+            window.location.href = 'web tv_v1.html';
+        });
+
+        const fadeDistance = 200;
+
+        document.addEventListener('mousemove', (e) => {
+            const rect = sceneControls.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            
+            const distance = Math.sqrt(
+                Math.pow(e.clientX - centerX, 2) + 
+                Math.pow(e.clientY - centerY, 2)
+            );
+
+            let opacity = 1 - (distance / fadeDistance);
+            opacity = Math.min(Math.max(opacity, 0.1), 1);
+
+            sceneControls.style.opacity = opacity;
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNIVERSUM: RD-CH3.57</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: black;
+        }
+        video {
+            display: none;
+            width: 100%;
+            height: auto;
+            max-height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+        #video-container video.active {
+            display: block;
+        }
+        
+        .arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+            font-size: 36px;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            border-radius: 10px;
+            opacity: 0.1;
+            transition: opacity 0.3s ease;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .arrow.left {
+            left: 20px;
+        }
+
+        .arrow.right {
+            right: 20px;
+        }
+       
+        #scene-controls {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 10;
+            opacity: 0.1;
+            transition: opacity 0.3s ease;
+        }
+
+        .scene-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .scene-dot.active {
+            width: 14px;
+            height: 14px;
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+
+        .scene-dot:hover {
+            background-color: rgba(255, 255, 255, 0.7);
+        }
+        
+        #clip-counter {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            font-family:'Courier New', Courier, monospace;
+            font-size: 14px;
+            opacity: 0.2;
+            z-index: 10;
+        }
+
+        #sound-toggle {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            cursor: pointer;
+            opacity: 0.2;
+            transition: opacity 0.3s ease;
+            z-index: 10;
+        }
+
+        #sound-toggle:hover {
+            opacity: 1;
+        }
+
+        #sound-toggle svg {
+            width: 24px;
+            height: 24px;
+            color: white;
+        }
+
+        #sound-toggle .unmuted-icon {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="clip-counter">1 of 26</div>
+    <div id="sound-toggle">
+        <svg class="muted-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.5 8.43A4.985 4.985 0 0 1 17 12c0 1.126-.5 2.5-1.5 3.5m2.864-9.864A8.972 8.972 0 0 1 21 12c0 2.023-.5 4.5-2.5 6M7.8 7.5l2.56-2.133a1 1 0 0 1 1.64.768V12m0 4.5v1.365a1 1 0 0 1-1.64.768L6 15H4a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1m1-4 14 14"/>
+        </svg>
+        <svg class="unmuted-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.5 8.43A4.985 4.985 0 0 1 17 12a4.984 4.984 0 0 1-1.43 3.5m2.794 2.864A8.972 8.972 0 0 0 21 12a8.972 8.972 0 0 0-2.636-6.364M12 6.135v11.73a1 1 0 0 1-1.64.768L6 15H4a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1h2l4.36-3.633a1 1 0 0 1 1.64.768Z"/>
+        </svg>
+    </div>
+    <div class="arrow left"><svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 19-7-7 7-7"/>
+      </svg>
+      </div>
+    <div class="arrow right"><svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7"/>
+      </svg>
+      </div>
+    
+    <div id="video-container">
+            <video src="clips/01environments04.mp4" class="active" loop muted autoplay></video>
+            <video src="clips/02environments06.mp4" loop muted autoplay></video>
+            <video src="clips/03environments02.mp4" loop muted autoplay></video>
+            <video src="clips/04environments05.mp4" loop muted autoplay></video>
+            <video src="clips/05environments03.mp4" loop muted autoplay></video>
+            <video src="clips/06environments01.mp4" loop muted autoplay></video>
+            <video src="clips/07Growth01a.mp4" loop muted autoplay></video>
+            <video src="clips/08origfibo01.mp4" loop muted autoplay></video>
+            <video src="clips/09growth04.mp4" loop muted autoplay></video>
+            <video src="clips/10Growth05.mp4" loop muted autoplay></video>
+            <video src="clips/11rocks1a.mp4" loop muted autoplay></video>
+            <video src="clips/12ball4a.mp4" loop muted autoplay></video>
+            <video src="clips/13starplant2.mp4" loop muted autoplay></video>
+            <video src="clips/14cave flower3a.mp4" loop muted autoplay></video>
+            <video src="clips/15spagetti1a.mp4" loop muted autoplay></video>
+            <video src="clips/16nest growth1.mp4" loop muted autoplay></video>
+            <video src="clips/17medusa_scene2.mp4" loop muted autoplay></video>
+            <video src="clips/18fibo31b.mp4" loop muted autoplay></video>
+            <video src="clips/19toothpicks1.mp4" loop muted autoplay></video>
+            <video src="clips/20ice-flowers02.mp4" loop muted autoplay></video>
+            <video src="clips/21divided trunk_3a.mp4" loop muted autoplay></video>
+            <video src="clips/22weird flower1.mp4" loop muted autoplay></video>
+            <video src="clips/23tube flower6.mp4" loop muted autoplay></video>
+            <video src="clips/24flyover1.mp4" loop muted autoplay></video>
+            <video src="clips/25trunks1.mp4" loop muted autoplay></video>
+            <video src="clips/26pillars1.mp4" loop muted autoplay></video>
+    </div>
+
+    <div id="scene-controls">
+        <a href="intro.html" class="scene-dot"></a>
+        <span class="scene-dot active"></span>
+        <a href="outro.html" class="scene-dot"></a>
+    </div>
+
+    <script>
+        const videos = document.querySelectorAll('#video-container video');
+        let currentIndex = 0;
+        const clipCounter = document.getElementById('clip-counter');
+        const totalClips = videos.length;
+        const soundToggle = document.getElementById('sound-toggle');
+        const mutedIcon = soundToggle.querySelector('.muted-icon');
+        const unmutedIcon = soundToggle.querySelector('.unmuted-icon');
+        let isMuted = true;
+
+        function updateClipCounter() {
+            clipCounter.textContent = `${currentIndex + 1} of ${totalClips}`;
+        }
+
+        function changeChannel(direction) {
+            videos[currentIndex].pause();
+            videos[currentIndex].currentTime = 0;
+            videos[currentIndex].classList.remove('active');
+
+            currentIndex = (currentIndex + direction + videos.length) % videos.length;
+
+            videos[currentIndex].classList.add('active');
+            videos[currentIndex].play();
+            updateClipCounter();
+        }
+
+        function playNextVideo() {
+            changeChannel(1);
+        }
+
+        function toggleSound() {
+            isMuted = !isMuted;
+            videos.forEach(video => {
+                video.muted = isMuted;
+            });
+            if (isMuted) {
+                mutedIcon.style.display = 'block';
+                unmutedIcon.style.display = 'none';
+            } else {
+                mutedIcon.style.display = 'none';
+                unmutedIcon.style.display = 'block';
+            }
+        }
+
+        videos.forEach(video => {
+            video.addEventListener('ended', playNextVideo);
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') {
+                changeChannel(1);
+            } else if (e.key === 'ArrowLeft') {
+                changeChannel(-1);
+            }
+        });
+
+        soundToggle.addEventListener('click', toggleSound);
+
+        // Play the first video on page load (it will be muted)
+        videos[currentIndex].play().then(() => {
+            updateClipCounter();
+        }).catch(error => {
+            console.error("Autoplay was prevented:", error);
+            updateClipCounter();
+        });
+
+        const sceneControls = document.getElementById('scene-controls');
+        const leftArrow = document.querySelector('.arrow.left');
+        const rightArrow = document.querySelector('.arrow.right');
+        const fadeDistance = 200; // Distance in pixels to start fading in
+
+        document.addEventListener('mousemove', (e) => {
+            const elements = [sceneControls, leftArrow, rightArrow];
+            elements.forEach(el => {
+                const rect = el.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+                
+                const distance = Math.sqrt(
+                    Math.pow(e.clientX - centerX, 2) + 
+                    Math.pow(e.clientY - centerY, 2)
+                );
+
+                let opacity = 1 - (distance / fadeDistance);
+                opacity = Math.min(Math.max(opacity, 0.1), 1); // Clamp between 0.1 and 1
+
+                el.style.opacity = opacity;
+            });
+        });
+
+        leftArrow.addEventListener('click', () => changeChannel(-1));
+        rightArrow.addEventListener('click', () => changeChannel(1));
+
+        // Initial counter update
+        updateClipCounter();
+    </script>
+</body>
+</html>
