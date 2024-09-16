@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Planet</title>
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        model-viewer {
+            width: 100%;
+            height: 100%;
+            background-color: black;
+        }
+    </style>
+</head>
+<body>
+    <model-viewer src="3d-objects/planet1.glb" 
+        ios-src="3d-objects/planet1.usdz" 
+        auto-rotate 
+        camera-controls 
+        background-color="black" 
+        exposure="0.7" 
+        shadow-intensity="1" 
+        alt="3D model of a Planet">
+    </model-viewer>
+</body>
+</html>
