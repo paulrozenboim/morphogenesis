@@ -210,29 +210,20 @@
         const popup = document.querySelector('.popup');
         const popupViewer = document.getElementById('popup-viewer');
         const closePopup = document.querySelector('.close-popup');
-        const scaleSlider = document.getElementById('scale-slider');
-
-        scaleSlider.addEventListener('input', (e) => {
-            const scale = e.target.value;
-            popupViewer.scale = `${scale} ${scale} ${scale}`;
-        });
-
+    
         gallery.addEventListener('click', (e) => {
             if (e.target.classList.contains('toggle-icon')) {
                 const modelViewer = e.target.nextElementSibling;
                 popupViewer.src = modelViewer.src;
                 popupViewer.iosSrc = modelViewer.iosSrc;
                 popup.style.display = 'block';
-                // Reset scale to 1 when opening a new model
-                scaleSlider.value = 1;
-                popupViewer.scale = '1 1 1';
             }
         });
-
+    
         closePopup.addEventListener('click', () => {
             popup.style.display = 'none';
         });
-
+    
         // Close popup when clicking outside the model viewer
         popup.addEventListener('click', (e) => {
             if (e.target === popup) {
