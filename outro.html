@@ -40,21 +40,25 @@
             font-weight: 300;
         }
         #play-button {
-            background: none;
-            border: none;
-            color: white;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-            padding: 0;
-            margin: 0;
-        }
+        background: none;
+        border: none;
+        color: white;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+        padding: 10px; /* Add padding to increase clickable area */
+        display: flex; /* Use flexbox to center the SVG */
+        justify-content: center;
+        align-items: center;
+        width: 60px; /* Set a fixed width */
+        height: 60px; /* Set a fixed height */
+        border-radius: 50%; /* Make it circular */
+    }
         #play-button:hover {
             transform: scale(1.2);
         }
         #play-button svg {
             width: 40px;
             height: 40px;
-            display: block;
         }
         #scene-controls {
             position: absolute;
@@ -100,9 +104,9 @@
     <div id="title-container">
         <h2>UNIVERSUM: ΔF-11235</h2>
         <button id="play-button">
-            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16.881V7.119a1 1 0 0 1 1.636-.772l5.927 4.881a1 1 0 0 1 0 1.544l-5.927 4.88A1 1 0 0 1 8 16.882Z"/>
-              </svg>
+            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 16.881V7.119a1 1 0 0 1 1.636-.772l5.927 4.881a1 1 0 0 1 0 1.544l-5.927 4.88A1 1 0 0 1 8 16.882Z"/>
+            </svg>
         </button>
     </div>
 
