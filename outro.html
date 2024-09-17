@@ -40,25 +40,21 @@
             font-weight: 300;
         }
         #play-button {
-        background: none;
-        border: none;
-        color: white;
-        cursor: pointer;
-        transition: transform 0.3s ease;
-        padding: 10px; /* Add padding to increase clickable area */
-        display: flex; /* Use flexbox to center the SVG */
-        justify-content: center;
-        align-items: center;
-        width: 60px; /* Set a fixed width */
-        height: 60px; /* Set a fixed height */
-        border-radius: 50%; /* Make it circular */
-    }
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            padding: 0;
+            margin: 0;
+        }
         #play-button:hover {
             transform: scale(1.2);
         }
         #play-button svg {
             width: 40px;
             height: 40px;
+            display: block;
         }
         #scene-controls {
             position: absolute;
@@ -121,7 +117,7 @@
     </div>
 
     <script>
-        const video = document.getElementById('bgVideo');
+         const video = document.getElementById('bgVideo');
         const playButton = document.getElementById('play-button');
         const titleContainer = document.getElementById('title-container');
         const sceneControls = document.getElementById('scene-controls');
