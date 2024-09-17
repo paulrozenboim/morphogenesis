@@ -216,11 +216,11 @@
     }
 
     function handleTouchEnd() {
-        if (touchStartX - touchEndX > 75) {
+        if (touchStartX - touchEndX > 150) {
             // Swipe left
             changeChannel(1);
         }
-        if (touchEndX - touchStartX > 75) {
+        if (touchEndX - touchStartX > 150) {
             // Swipe right
             changeChannel(-1);
         }
