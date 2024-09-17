@@ -192,6 +192,8 @@
     </div>
 
     <script>
+            let touchStartX = 0;
+            let touchEndX = 0;
         const videos = document.querySelectorAll('#video-container video');
         let currentIndex = 0;
         const clipCounter = document.getElementById('clip-counter');
@@ -204,7 +206,25 @@
         function updateClipCounter() {
             clipCounter.textContent = `${currentIndex + 1} of ${totalClips}`;
         }
+  // Add these functions to handle touch events
+  function handleTouchStart(event) {
+        touchStartX = event.touches[0].clientX;
+    }
 
+    function handleTouchMove(event) {
+        touchEndX = event.touches[0].clientX;
+    }
+
+    function handleTouchEnd() {
+        if (touchStartX - touchEndX > 75) {
+            // Swipe left
+            changeChannel(1);
+        }
+        if (touchEndX - touchStartX > 75) {
+            // Swipe right
+            changeChannel(-1);
+        }
+    }
         function changeChannel(direction) {
             videos[currentIndex].pause();
             videos[currentIndex].currentTime = 0;
@@ -261,6 +281,11 @@
         const leftArrow = document.querySelector('.arrow.left');
         const rightArrow = document.querySelector('.arrow.right');
         const fadeDistance = 200; // Distance in pixels to start fading in
+        
+        const videoContainer = document.getElementById('video-container');
+    videoContainer.addEventListener('touchstart', handleTouchStart, false);
+    videoContainer.addEventListener('touchmove', handleTouchMove, false);
+    videoContainer.addEventListener('touchend', handleTouchEnd, false);
 
         document.addEventListener('mousemove', (e) => {
             const elements = [sceneControls, leftArrow, rightArrow];
