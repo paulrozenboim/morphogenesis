@@ -64,7 +64,7 @@
             display: flex;
             gap: 15px;
             z-index: 10;
-            opacity: 0.1;
+            opacity: 0.5;
             transition: opacity 0.3s ease;
         }
         .scene-dot {
@@ -172,7 +172,7 @@
             );
     
             let opacity = 1 - (distance / fadeDistance);
-            opacity = Math.min(Math.max(opacity, 0.1), 1);
+            opacity = Math.min(Math.max(opacity, 0.5), 1);
     
             sceneControls.style.opacity = opacity;
         });

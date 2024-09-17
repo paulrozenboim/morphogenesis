@@ -63,7 +63,7 @@
             display: flex;
             gap: 15px;
             z-index: 10;
-            opacity: 0.1;
+            opacity: 0.5;
             transition: opacity 0.3s ease;
         }
         .scene-dot {
@@ -92,7 +92,7 @@
         cursor: pointer;
         z-index: 200;
         transition: transform 0.3s ease;
-        opacity: 0.1;
+        opacity: 0.5;
     }
     .up-arrow:hover {
             transform: translateX(-50%) scale(1.2);
@@ -163,7 +163,7 @@
             );
 
             let opacity = 1 - (distance / fadeDistance);
-            opacity = Math.min(Math.max(opacity, 0.1), 1);
+            opacity = Math.min(Math.max(opacity, 0.5), 1);
 
             sceneControls.style.opacity = opacity;
         
@@ -177,7 +177,7 @@
             );
 
             let homeOpacity = 1 - (homeDistance / fadeDistance);
-            homeOpacity = Math.min(Math.max(homeOpacity, 0.1), 1);
+            homeOpacity = Math.min(Math.max(homeOpacity, 0.5), 1);
 
             homeDot.style.opacity = homeOpacity;
         });
