@@ -205,8 +205,8 @@
     </div>
 
     <script>
-            let touchStartX = 0;
-            let touchEndX = 0;
+        let touchStartX = 0;
+        let touchEndX = 0;
         const videos = document.querySelectorAll('#video-container video');
         let currentIndex = 0;
         const clipCounter = document.getElementById('clip-counter');
@@ -215,46 +215,48 @@
         const mutedIcon = soundToggle.querySelector('.muted-icon');
         const unmutedIcon = soundToggle.querySelector('.unmuted-icon');
         let isMuted = true;
-
+    
         function updateClipCounter() {
             clipCounter.textContent = `${currentIndex + 1} of ${totalClips}`;
         }
-  // Add these functions to handle touch events
-  function handleTouchStart(event) {
-        touchStartX = event.touches[0].clientX;
-    }
-
-    function handleTouchMove(event) {
-        touchEndX = event.touches[0].clientX;
-    }
-
-    function handleTouchEnd() {
-        if (touchStartX - touchEndX > 75) {
-            // Swipe left
-            changeChannel(1);
+    
+        function handleTouchStart(event) {
+            touchStartX = event.touches[0].clientX;
         }
-        if (touchEndX - touchStartX > 75) {
-            // Swipe right
-            changeChannel(-1);
+    
+        function handleTouchMove(event) {
+            touchEndX = event.touches[0].clientX;
         }
-    }
+    
+        function handleTouchEnd() {
+            if (touchStartX - touchEndX > 75) {
+                // Swipe left
+                changeChannel(1);
+            }
+            if (touchEndX - touchStartX > 75) {
+                // Swipe right
+                changeChannel(-1);
+            }
+        }
+    
         function changeChannel(direction) {
             videos[currentIndex].pause();
             videos[currentIndex].currentTime = 0;
             videos[currentIndex].classList.remove('active');
-            videos[currentIndex].style.transform = ''; // Reset transform
-
+            videos[currentIndex].style.display = 'none';
+    
             currentIndex = (currentIndex + direction + videos.length) % videos.length;
-
+    
             videos[currentIndex].classList.add('active');
-            videos[currentIndex].play();
+            videos[currentIndex].style.display = 'block';
+            videos[currentIndex].play().catch(error => console.error("Error playing video:", error));
             updateClipCounter();
         }
-
+    
         function playNextVideo() {
             changeChannel(1);
         }
-
+    
         function toggleSound() {
             isMuted = !isMuted;
             videos.forEach(video => {
@@ -268,11 +270,11 @@
                 unmutedIcon.style.display = 'block';
             }
         }
-
+    
         videos.forEach(video => {
             video.addEventListener('ended', playNextVideo);
         });
-
+    
         document.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowRight') {
                 changeChannel(1);
@@ -280,13 +282,57 @@
                 changeChannel(-1);
             }
         });
-
+    
         soundToggle.addEventListener('click', toggleSound);
-
-        // Call this function when the page loads or when user interacts
+    
+        const videoContainer = document.getElementById('video-container');
+        videoContainer.addEventListener('touchstart', handleTouchStart, false);
+        videoContainer.addEventListener('touchmove', handleTouchMove, false);
+        videoContainer.addEventListener('touchend', handleTouchEnd, false);
+    
+        let gyroEnabled = false;
+        let initialBeta = null;
+        const maxTilt = 15;
+        const maxShift = 20;
+    
+        function handleOrientation(event) {
+            if (!gyroEnabled || window.innerWidth > window.innerHeight) return;
+    
+            const beta = event.beta;
+    
+            if (initialBeta === null) {
+                initialBeta = beta;
+            }
+    
+            const tilt = beta - initialBeta;
+            const shiftPercentage = (tilt / maxTilt) * maxShift;
+            const clampedShift = Math.max(-maxShift, Math.min(maxShift, shiftPercentage));
+    
+            const activeVideo = document.querySelector('#video-container video.active');
+            if (activeVideo) {
+                activeVideo.style.transform = `translate(calc(-50% + ${clampedShift}%), -50%)`;
+            }
+        }
+    
+        function enableGyro() {
+            if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
+                DeviceOrientationEvent.requestPermission()
+                    .then(permissionState => {
+                        if (permissionState === 'granted') {
+                            window.addEventListener('deviceorientation', handleOrientation);
+                            gyroEnabled = true;
+                        }
+                    })
+                    .catch(console.error);
+            } else {
+                window.addEventListener('deviceorientation', handleOrientation);
+                gyroEnabled = true;
+            }
+        }
+    
         window.addEventListener('load', () => {
             enableGyro();
-            // Play the first video on page load (it will be muted)
+            videos[currentIndex].style.display = 'block';
             videos[currentIndex].play().then(() => {
                 updateClipCounter();
             }).catch(error => {
@@ -294,49 +340,18 @@
                 updateClipCounter();
             });
         });
-
+    
         document.body.addEventListener('click', enableGyro);
-
-        // Reset initial beta when orientation changes
+    
         window.addEventListener('orientationchange', () => {
             initialBeta = null;
         });
-
+    
         const sceneControls = document.getElementById('scene-controls');
         const leftArrow = document.querySelector('.arrow.left');
         const rightArrow = document.querySelector('.arrow.right');
-        const fadeDistance = 200; // Distance in pixels to start fading in
-        
-        const videoContainer = document.getElementById('video-container');
-    videoContainer.addEventListener('touchstart', handleTouchStart, false);
-    videoContainer.addEventListener('touchmove', handleTouchMove, false);
-    videoContainer.addEventListener('touchend', handleTouchEnd, false);
-
-        document.addEventListener('mousemove', (e) => {
-            const elements = [sceneControls, leftArrow, rightArrow];
-            elements.forEach(el => {
-                const rect = el.getBoundingClientRect();
-                const centerX = rect.left + rect.width / 2;
-                const centerY = rect.top + rect.height / 2;
-                
-                const distance = Math.sqrt(
-                    Math.pow(e.clientX - centerX, 2) + 
-                    Math.pow(e.clientY - centerY, 2)
-                );
-
-                let opacity = 1 - (distance / fadeDistance);
-                opacity = Math.min(Math.max(opacity, 0.3), 1); // Clamp between 0.3 and 1
-
-                el.style.opacity = opacity;
-            });
-        });
-
-        leftArrow.addEventListener('click', () => changeChannel(-1));
-        rightArrow.addEventListener('click', () => changeChannel(1));
-
-        // Initial counter update
-        updateClipCounter();
-
+        const fadeDistance = 200;
+    
         document.addEventListener('mousemove', (e) => {
             const elements = [sceneControls, leftArrow, rightArrow, document.querySelector('.gallery-dot')];
             elements.forEach(el => {
@@ -348,117 +363,18 @@
                     Math.pow(e.clientX - centerX, 2) + 
                     Math.pow(e.clientY - centerY, 2)
                 );
-
+    
                 let opacity = 1 - (distance / fadeDistance);
-                opacity = Math.min(Math.max(opacity, 0.3), 1); // Clamp between 0.3 and 1
-
+                opacity = Math.min(Math.max(opacity, 0.3), 1);
+    
                 el.style.opacity = opacity;
             });
         });
-
-        const videoSources = [
-            'clips/01environments04.mp4',
-            'clips/02environments06.mp4',
-            'clips/03environments02.mp4',
-            'clips/04environments05.mp4',
-            'clips/05environments03.mp4',
-            'clips/06environments01.mp4',
-            'clips/07Growth01a.mp4',
-            'clips/08origfibo01.mp4',
-            'clips/09growth04.mp4',
-            'clips/10Growth05.mp4',
-            'clips/11rocks1a.mp4',
-            'clips/12ball4a.mp4',
-            'clips/13starplant2.mp4',
-            'clips/14cave flower3a.mp4',
-            'clips/15spagetti1a.mp4',
-            'clips/16nest growth1.mp4',
-            'clips/17medusa_scene2.mp4',
-            'clips/18fibo31b.mp4',
-            'clips/19toothpicks1.mp4',
-            'clips/20ice-flowers02.mp4',
-            'clips/21divided trunk_3a.mp4',
-            'clips/22weird flower1.mp4',
-            'clips/23tube flower6.mp4',
-            'clips/24flyover1.mp4',
-            'clips/25trunks1.mp4',
-            'clips/26pillars1.mp4'
-        ];
-
-        function preloadVideos() {
-            videoSources.forEach(src => {
-                const video = document.createElement('video');
-                video.src = src;
-                video.preload = 'auto';
-                video.load();
-            });
-        }
-
-        // Call this function when the page loads
-        window.addEventListener('load', preloadVideos);
-
-        // Modify the existing playVideo function
-        function playVideo(videoElement) {
-            if (currentVideo) {
-                currentVideo.pause();
-                currentVideo.currentTime = 0;
-            }
-            currentVideo = videoElement;
-            videoElement.play().catch(error => {
-                console.error('Error playing video:', error);
-            });
-        }
-
-        let gyroEnabled = false;
-        let initialBeta = null;
-        const maxTilt = 15; // Maximum tilt angle in degrees
-        const maxShift = 20; // Maximum shift percentage
-
-        function handleOrientation(event) {
-            if (!gyroEnabled || window.innerWidth > window.innerHeight) return; // Only active in portrait mode
-
-            const beta = event.beta; // Front-to-back tilt in degrees, where front is positive
-
-            if (initialBeta === null) {
-                initialBeta = beta;
-            }
-
-            const tilt = beta - initialBeta;
-            const shiftPercentage = (tilt / maxTilt) * maxShift;
-            const clampedShift = Math.max(-maxShift, Math.min(maxShift, shiftPercentage));
-
-            const activeVideo = document.querySelector('#video-container video.active');
-            if (activeVideo) {
-                activeVideo.style.transform = `translate(calc(-50% + ${clampedShift}%), -50%)`;
-            }
-        }
-
-        function enableGyro() {
-            if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
-                // iOS 13+ requires user permission
-                DeviceOrientationEvent.requestPermission()
-                    .then(permissionState => {
-                        if (permissionState === 'granted') {
-                            window.addEventListener('deviceorientation', handleOrientation);
-                            gyroEnabled = true;
-                        }
-                    })
-                    .catch(console.error);
-            } else {
-                // Non iOS 13+ devices
-                window.addEventListener('deviceorientation', handleOrientation);
-                gyroEnabled = true;
-            }
-        }
-
-        // Call this function when the page loads or when user interacts
-        window.addEventListener('load', enableGyro);
-        document.body.addEventListener('click', enableGyro);
-
-        // Reset initial beta when orientation changes
-        window.addEventListener('orientationchange', () => {
-            initialBeta = null;
-        });
+    
+        leftArrow.addEventListener('click', () => changeChannel(-1));
+        rightArrow.addEventListener('click', () => changeChannel(1));
+    
+        updateClipCounter();
     </script>
 </body>
 </html>
