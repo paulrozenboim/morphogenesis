@@ -18,28 +18,15 @@
             display: none;
             width: 100%;
             height: 100%;
+            max-height: 100%;
             object-fit: cover;
             position: absolute;
             top: 0;
             left: 0;
             z-index: -1;
         }
-        #video-container {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-        }
-
-        #video-container video {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
+        #video-container video.active {
+            display: block;
         }
         
         .gallery-dot {
@@ -69,7 +56,7 @@
             font-family: Arial, sans-serif;
             padding: 20px;
             border-radius: 10px;
-            opacity: 0.3;
+            opacity: 0.6;
             transition: opacity 0.3s ease;
             cursor: pointer;
             z-index: 10;
@@ -91,7 +78,7 @@
             display: flex;
             gap: 15px;
             z-index: 10;
-            opacity: 0.3;
+            opacity: 0.5;
             transition: opacity 0.3s ease;
         }
 
@@ -99,7 +86,7 @@
             width: 10px;
             height: 10px;
             border-radius: 50%;
-            background-color: rgba(255, 255, 255, 0.7);
+            background-color: rgba(255, 255, 255, 0.6);
             transition: all 0.3s ease;
         }
 
@@ -120,7 +107,7 @@
             color: white;
             font-family:'Courier New', Courier, monospace;
             font-size: 14px;
-            opacity: 0.5;
+            opacity: 0.2;
             z-index: 10;
         }
 
@@ -129,7 +116,7 @@
             top: 20px;
             left: 20px;
             cursor: pointer;
-            opacity: 0.5;
+            opacity: 0.2;
             transition: opacity 0.3s ease;
             z-index: 10;
         }
@@ -205,8 +192,8 @@
     </div>
 
     <script>
-        let touchStartX = 0;
-        let touchEndX = 0;
+            let touchStartX = 0;
+            let touchEndX = 0;
         const videos = document.querySelectorAll('#video-container video');
         let currentIndex = 0;
         const clipCounter = document.getElementById('clip-counter');
@@ -215,48 +202,45 @@
         const mutedIcon = soundToggle.querySelector('.muted-icon');
         const unmutedIcon = soundToggle.querySelector('.unmuted-icon');
         let isMuted = true;
-    
+
         function updateClipCounter() {
             clipCounter.textContent = `${currentIndex + 1} of ${totalClips}`;
         }
-    
-        function handleTouchStart(event) {
-            touchStartX = event.touches[0].clientX;
+  // Add these functions to handle touch events
+  function handleTouchStart(event) {
+        touchStartX = event.touches[0].clientX;
+    }
+
+    function handleTouchMove(event) {
+        touchEndX = event.touches[0].clientX;
+    }
+
+    function handleTouchEnd() {
+        if (touchStartX - touchEndX > 75) {
+            // Swipe left
+            changeChannel(1);
         }
-    
-        function handleTouchMove(event) {
-            touchEndX = event.touches[0].clientX;
+        if (touchEndX - touchStartX > 75) {
+            // Swipe right
+            changeChannel(-1);
         }
-    
-        function handleTouchEnd() {
-            if (touchStartX - touchEndX > 75) {
-                // Swipe left
-                changeChannel(1);
-            }
-            if (touchEndX - touchStartX > 75) {
-                // Swipe right
-                changeChannel(-1);
-            }
-        }
-    
+    }
         function changeChannel(direction) {
             videos[currentIndex].pause();
             videos[currentIndex].currentTime = 0;
             videos[currentIndex].classList.remove('active');
-            videos[currentIndex].style.display = 'none';
-    
+
             currentIndex = (currentIndex + direction + videos.length) % videos.length;
-    
+
             videos[currentIndex].classList.add('active');
-            videos[currentIndex].style.display = 'block';
-            videos[currentIndex].play().catch(error => console.error("Error playing video:", error));
+            videos[currentIndex].play();
             updateClipCounter();
         }
-    
+
         function playNextVideo() {
             changeChannel(1);
         }
-    
+
         function toggleSound() {
             isMuted = !isMuted;
             videos.forEach(video => {
@@ -270,11 +254,11 @@
                 unmutedIcon.style.display = 'block';
             }
         }
-    
+
         videos.forEach(video => {
             video.addEventListener('ended', playNextVideo);
         });
-    
+
         document.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowRight') {
                 changeChannel(1);
@@ -282,76 +266,52 @@
                 changeChannel(-1);
             }
         });
-    
+
         soundToggle.addEventListener('click', toggleSound);
-    
-        const videoContainer = document.getElementById('video-container');
-        videoContainer.addEventListener('touchstart', handleTouchStart, false);
-        videoContainer.addEventListener('touchmove', handleTouchMove, false);
-        videoContainer.addEventListener('touchend', handleTouchEnd, false);
-    
-        let gyroEnabled = false;
-        let initialBeta = null;
-        const maxTilt = 15;
-        const maxShift = 20;
-    
-        function handleOrientation(event) {
-            if (!gyroEnabled || window.innerWidth > window.innerHeight) return;
-    
-            const beta = event.beta;
-    
-            if (initialBeta === null) {
-                initialBeta = beta;
-            }
-    
-            const tilt = beta - initialBeta;
-            const shiftPercentage = (tilt / maxTilt) * maxShift;
-            const clampedShift = Math.max(-maxShift, Math.min(maxShift, shiftPercentage));
-    
-            const activeVideo = document.querySelector('#video-container video.active');
-            if (activeVideo) {
-                activeVideo.style.transform = `translate(calc(-50% + ${clampedShift}%), -50%)`;
-            }
-        }
-    
-        function enableGyro() {
-            if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
-                DeviceOrientationEvent.requestPermission()
-                    .then(permissionState => {
-                        if (permissionState === 'granted') {
-                            window.addEventListener('deviceorientation', handleOrientation);
-                            gyroEnabled = true;
-                        }
-                    })
-                    .catch(console.error);
-            } else {
-                window.addEventListener('deviceorientation', handleOrientation);
-                gyroEnabled = true;
-            }
-        }
-    
-        window.addEventListener('load', () => {
-            enableGyro();
-            videos[currentIndex].style.display = 'block';
-            videos[currentIndex].play().then(() => {
-                updateClipCounter();
-            }).catch(error => {
-                console.error("Autoplay was prevented:", error);
-                updateClipCounter();
-            });
+
+        // Play the first video on page load (it will be muted)
+        videos[currentIndex].play().then(() => {
+            updateClipCounter();
+        }).catch(error => {
+            console.error("Autoplay was prevented:", error);
+            updateClipCounter();
         });
-    
-        document.body.addEventListener('click', enableGyro);
-    
-        window.addEventListener('orientationchange', () => {
-            initialBeta = null;
-        });
-    
+
         const sceneControls = document.getElementById('scene-controls');
         const leftArrow = document.querySelector('.arrow.left');
         const rightArrow = document.querySelector('.arrow.right');
-        const fadeDistance = 200;
-    
+        const fadeDistance = 200; // Distance in pixels to start fading in
+        
+        const videoContainer = document.getElementById('video-container');
+    videoContainer.addEventListener('touchstart', handleTouchStart, false);
+    videoContainer.addEventListener('touchmove', handleTouchMove, false);
+    videoContainer.addEventListener('touchend', handleTouchEnd, false);
+
+        document.addEventListener('mousemove', (e) => {
+            const elements = [sceneControls, leftArrow, rightArrow];
+            elements.forEach(el => {
+                const rect = el.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+                
+                const distance = Math.sqrt(
+                    Math.pow(e.clientX - centerX, 2) + 
+                    Math.pow(e.clientY - centerY, 2)
+                );
+
+                let opacity = 1 - (distance / fadeDistance);
+                opacity = Math.min(Math.max(opacity, 0.1), 1); // Clamp between 0.1 and 1
+
+                el.style.opacity = opacity;
+            });
+        });
+
+        leftArrow.addEventListener('click', () => changeChannel(-1));
+        rightArrow.addEventListener('click', () => changeChannel(1));
+
+        // Initial counter update
+        updateClipCounter();
+
         document.addEventListener('mousemove', (e) => {
             const elements = [sceneControls, leftArrow, rightArrow, document.querySelector('.gallery-dot')];
             elements.forEach(el => {
@@ -363,18 +323,66 @@
                     Math.pow(e.clientX - centerX, 2) + 
                     Math.pow(e.clientY - centerY, 2)
                 );
-    
+
                 let opacity = 1 - (distance / fadeDistance);
-                opacity = Math.min(Math.max(opacity, 0.3), 1);
-    
+                opacity = Math.min(Math.max(opacity, 0.4), 1); // Clamp between 0.1 and 1
+
                 el.style.opacity = opacity;
             });
         });
-    
-        leftArrow.addEventListener('click', () => changeChannel(-1));
-        rightArrow.addEventListener('click', () => changeChannel(1));
-    
-        updateClipCounter();
+
+        const videoSources = [
+            'clips/01environments04.mp4',
+            'clips/02environments06.mp4',
+            'clips/03environments02.mp4',
+            'clips/04environments05.mp4',
+            'clips/05environments03.mp4',
+            'clips/06environments01.mp4',
+            'clips/07Growth01a.mp4',
+            'clips/08origfibo01.mp4',
+            'clips/09growth04.mp4',
+            'clips/10Growth05.mp4',
+            'clips/11rocks1a.mp4',
+            'clips/12ball4a.mp4',
+            'clips/13starplant2.mp4',
+            'clips/14cave flower3a.mp4',
+            'clips/15spagetti1a.mp4',
+            'clips/16nest growth1.mp4',
+            'clips/17medusa_scene2.mp4',
+            'clips/18fibo31b.mp4',
+            'clips/19toothpicks1.mp4',
+            'clips/20ice-flowers02.mp4',
+            'clips/21divided trunk_3a.mp4',
+            'clips/22weird flower1.mp4',
+            'clips/23tube flower6.mp4',
+            'clips/24flyover1.mp4',
+            'clips/25trunks1.mp4',
+            'clips/26pillars1.mp4'
+        ];
+
+        function preloadVideos() {
+            videoSources.forEach(src => {
+                const video = document.createElement('video');
+                video.src = src;
+                video.preload = 'auto';
+                video.load();
+            });
+        }
+
+        // Call this function when the page loads
+        window.addEventListener('load', preloadVideos);
+
+        // Modify the existing playVideo function
+        function playVideo(videoElement) {
+            if (currentVideo) {
+                currentVideo.pause();
+                currentVideo.currentTime = 0;
+            }
+            currentVideo = videoElement;
+            videoElement.play().catch(error => {
+                console.error('Error playing video:', error);
+            });
+        }
     </script>
 </body>
 </html>
