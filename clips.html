@@ -242,6 +242,7 @@
             videos[currentIndex].pause();
             videos[currentIndex].currentTime = 0;
             videos[currentIndex].classList.remove('active');
+            videos[currentIndex].style.transform = ''; // Reset transform
 
             currentIndex = (currentIndex + direction + videos.length) % videos.length;
 
@@ -282,12 +283,23 @@
 
         soundToggle.addEventListener('click', toggleSound);
 
-        // Play the first video on page load (it will be muted)
-        videos[currentIndex].play().then(() => {
-            updateClipCounter();
-        }).catch(error => {
-            console.error("Autoplay was prevented:", error);
-            updateClipCounter();
+        // Call this function when the page loads or when user interacts
+        window.addEventListener('load', () => {
+            enableGyro();
+            // Play the first video on page load (it will be muted)
+            videos[currentIndex].play().then(() => {
+                updateClipCounter();
+            }).catch(error => {
+                console.error("Autoplay was prevented:", error);
+                updateClipCounter();
+            });
+        });
+
+        document.body.addEventListener('click', enableGyro);
+
+        // Reset initial beta when orientation changes
+        window.addEventListener('orientationchange', () => {
+            initialBeta = null;
         });
 
         const sceneControls = document.getElementById('scene-controls');
