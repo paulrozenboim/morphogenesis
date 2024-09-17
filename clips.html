@@ -18,15 +18,28 @@
             display: none;
             width: 100%;
             height: 100%;
-            max-height: 100%;
             object-fit: cover;
             position: absolute;
             top: 0;
             left: 0;
             z-index: -1;
         }
-        #video-container video.active {
-            display: block;
+        #video-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        #video-container video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
         }
         
         .gallery-dot {
@@ -56,7 +69,7 @@
             font-family: Arial, sans-serif;
             padding: 20px;
             border-radius: 10px;
-            opacity: 0.6;
+            opacity: 0.3;
             transition: opacity 0.3s ease;
             cursor: pointer;
             z-index: 10;
@@ -78,7 +91,7 @@
             display: flex;
             gap: 15px;
             z-index: 10;
-            opacity: 0.5;
+            opacity: 0.3;
             transition: opacity 0.3s ease;
         }
 
@@ -86,7 +99,7 @@
             width: 10px;
             height: 10px;
             border-radius: 50%;
-            background-color: rgba(255, 255, 255, 0.6);
+            background-color: rgba(255, 255, 255, 0.7);
             transition: all 0.3s ease;
         }
 
@@ -107,7 +120,7 @@
             color: white;
             font-family:'Courier New', Courier, monospace;
             font-size: 14px;
-            opacity: 0.2;
+            opacity: 0.5;
             z-index: 10;
         }
 
@@ -116,7 +129,7 @@
             top: 20px;
             left: 20px;
             cursor: pointer;
-            opacity: 0.2;
+            opacity: 0.5;
             transition: opacity 0.3s ease;
             z-index: 10;
         }
@@ -300,7 +313,7 @@
                 );
 
                 let opacity = 1 - (distance / fadeDistance);
-                opacity = Math.min(Math.max(opacity, 0.1), 1); // Clamp between 0.1 and 1
+                opacity = Math.min(Math.max(opacity, 0.3), 1); // Clamp between 0.3 and 1
 
                 el.style.opacity = opacity;
             });
@@ -325,7 +338,7 @@
                 );
 
                 let opacity = 1 - (distance / fadeDistance);
-                opacity = Math.min(Math.max(opacity, 0.4), 1); // Clamp between 0.1 and 1
+                opacity = Math.min(Math.max(opacity, 0.3), 1); // Clamp between 0.3 and 1
 
                 el.style.opacity = opacity;
             });
@@ -383,6 +396,57 @@
                 console.error('Error playing video:', error);
             });
         }
+
+        let gyroEnabled = false;
+        let initialBeta = null;
+        const maxTilt = 15; // Maximum tilt angle in degrees
+        const maxShift = 20; // Maximum shift percentage
+
+        function handleOrientation(event) {
+            if (!gyroEnabled || window.innerWidth > window.innerHeight) return; // Only active in portrait mode
+
+            const beta = event.beta; // Front-to-back tilt in degrees, where front is positive
+
+            if (initialBeta === null) {
+                initialBeta = beta;
+            }
+
+            const tilt = beta - initialBeta;
+            const shiftPercentage = (tilt / maxTilt) * maxShift;
+            const clampedShift = Math.max(-maxShift, Math.min(maxShift, shiftPercentage));
+
+            const activeVideo = document.querySelector('#video-container video.active');
+            if (activeVideo) {
+                activeVideo.style.transform = `translate(calc(-50% + ${clampedShift}%), -50%)`;
+            }
+        }
+
+        function enableGyro() {
+            if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
+                // iOS 13+ requires user permission
+                DeviceOrientationEvent.requestPermission()
+                    .then(permissionState => {
+                        if (permissionState === 'granted') {
+                            window.addEventListener('deviceorientation', handleOrientation);
+                            gyroEnabled = true;
+                        }
+                    })
+                    .catch(console.error);
+            } else {
+                // Non iOS 13+ devices
+                window.addEventListener('deviceorientation', handleOrientation);
+                gyroEnabled = true;
+            }
+        }
+
+        // Call this function when the page loads or when user interacts
+        window.addEventListener('load', enableGyro);
+        document.body.addEventListener('click', enableGyro);
+
+        // Reset initial beta when orientation changes
+        window.addEventListener('orientationchange', () => {
+            initialBeta = null;
+        });
     </script>
 </body>
 </html>
