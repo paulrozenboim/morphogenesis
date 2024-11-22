@@ -133,7 +133,7 @@
             border: none;
             cursor: pointer;
             z-index: 100;
-            display: none; /* Only show when in AR mode */
+            display: none;
         }
 
         .share-container {
@@ -146,6 +146,22 @@
             border-radius: 10px;
             display: none;
         }
+
+        .ar-instructions {
+            position: absolute;
+            bottom: 70px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            font-family: 'Helvetica', sans-serif;
+            font-size: 14px;
+            text-align: center;
+            display: none;
+            z-index: 100;
+        }
     </style>
 </head>
 <body>
@@ -154,220 +170,360 @@
     <div id="gallery">
         <div class="cell">
             <span class="toggle-icon">⛶</span>
-            <model-viewer src="3d-objects/coral.glb" ios-src="3d-objects/coral.usdz" auto-rotate camera-controls background-color="black" exposure="0.5">
+            <model-viewer src="3d-objects/coral.glb" ios-src="3d-objects/coral.usdz" auto-rotate camera-controls background-color="black" exposure="0.5"
+            ar ar-modes="scene-viewer quick-look webxr"
+            ar-scale="auto"
+            ar-placement="floor">
+                <button class="screenshot-btn" slot="ar-button">
+                    Capture AR Photo
+                </button>
                 <div class="ar-instructions" slot="ar-button">
                     <p>1. Position the specimen in your space</p>
                     <p>2. Take a screenshot or photo</p>
                     <p>3. Share on Instagram with #UniversaMorphogenesis</p>
+                    <p>Tag @unapaulogetic</p>
                 </div>
             </model-viewer>
         </div>
 
         <div class="cell">
             <span class="toggle-icon">⛶</span>
-            <model-viewer src="3d-objects/basis01.glb" ios-src="3d-objects/basis01.usdz" auto-rotate camera-controls background-color="black" exposure="0.5">
+            <model-viewer src="3d-objects/basis01.glb" ios-src="3d-objects/basis01.usdz" auto-rotate camera-controls background-color="black" exposure="0.5"
+            ar ar-modes="scene-viewer quick-look webxr"
+            ar-scale="auto"
+            ar-placement="floor">
+                <button class="screenshot-btn" slot="ar-button">
+                    Capture AR Photo
+                </button>
                 <div class="ar-instructions" slot="ar-button">
                     <p>1. Position the specimen in your space</p>
                     <p>2. Take a screenshot or photo</p>
                     <p>3. Share on Instagram with #UniversaMorphogenesis</p>
+                    <p>Tag @unapaulogetic</p>
                 </div>
             </model-viewer>
         </div>
 
         <div class="cell">
             <span class="toggle-icon">⛶</span>
-            <model-viewer src="3d-objects/tophat.glb" ios-src="3d-objects/tophat.usdz" auto-rotate camera-controls background-color="black" exposure="0.5">
+            <model-viewer src="3d-objects/tophat.glb" ios-src="3d-objects/tophat.usdz" auto-rotate camera-controls background-color="black" exposure="0.5"
+            ar ar-modes="scene-viewer quick-look webxr"
+            ar-scale="auto"
+            ar-placement="floor">
+                <button class="screenshot-btn" slot="ar-button">
+                    Capture AR Photo
+                </button>
                 <div class="ar-instructions" slot="ar-button">
                     <p>1. Position the specimen in your space</p>
                     <p>2. Take a screenshot or photo</p>
                     <p>3. Share on Instagram with #UniversaMorphogenesis</p>
+                    <p>Tag @unapaulogetic</p>
                 </div>
             </model-viewer>
         </div>
 
         <div class="cell">
             <span class="toggle-icon">⛶</span>
-            <model-viewer src="3d-objects/fishball.glb" ios-src="3d-objects/fishball.usdz" auto-rotate camera-controls background-color="black" exposure="0.5">
+            <model-viewer src="3d-objects/fishball.glb" ios-src="3d-objects/fishball.usdz" auto-rotate camera-controls background-color="black" exposure="0.5"
+            ar ar-modes="scene-viewer quick-look webxr"
+            ar-scale="auto"
+            ar-placement="floor">
+                <button class="screenshot-btn" slot="ar-button">
+                    Capture AR Photo
+                </button>
                 <div class="ar-instructions" slot="ar-button">
                     <p>1. Position the specimen in your space</p>
                     <p>2. Take a screenshot or photo</p>
                     <p>3. Share on Instagram with #UniversaMorphogenesis</p>
+                    <p>Tag @unapaulogetic</p>
                 </div>
             </model-viewer>
         </div>
 
         <div class="cell">
             <span class="toggle-icon">⛶</span>
-            <model-viewer src="3d-objects/fibo03.glb" ios-src="3d-objects/fibo03.usdz" auto-rotate camera-controls background-color="black" exposure="0.5">
+            <model-viewer src="3d-objects/fibo03.glb" ios-src="3d-objects/fibo03.usdz" auto-rotate camera-controls background-color="black" exposure="0.5"
+            ar ar-modes="scene-viewer quick-look webxr"
+            ar-scale="auto"
+            ar-placement="floor">
+                <button class="screenshot-btn" slot="ar-button">
+                    Capture AR Photo
+                </button>
                 <div class="ar-instructions" slot="ar-button">
                     <p>1. Position the specimen in your space</p>
                     <p>2. Take a screenshot or photo</p>
                     <p>3. Share on Instagram with #UniversaMorphogenesis</p>
+                    <p>Tag @unapaulogetic</p>
                 </div>
             </model-viewer>
         </div>
         
         <div class="cell">
             <span class="toggle-icon">⛶</span>
-            <model-viewer src="3d-objects/balloon.glb" ios-src="3d-objects/balloon.usdz" auto-rotate camera-controls background-color="black" exposure="0.5">
+            <model-viewer src="3d-objects/balloon.glb" ios-src="3d-objects/balloon.usdz" auto-rotate camera-controls background-color="black" exposure="0.5"
+            ar ar-modes="scene-viewer quick-look webxr"
+            ar-scale="auto"
+            ar-placement="floor">
+                <button class="screenshot-btn" slot="ar-button">
+                    Capture AR Photo
+                </button>
                 <div class="ar-instructions" slot="ar-button">
                     <p>1. Position the specimen in your space</p>
                     <p>2. Take a screenshot or photo</p>
                     <p>3. Share on Instagram with #UniversaMorphogenesis</p>
+                    <p>Tag @unapaulogetic</p>
                 </div>
             </model-viewer>
         </div>
 
         <div class="cell">
             <span class="toggle-icon">⛶</span>
-            <model-viewer src="3d-objects/3d-printed.glb" ios-src="3d-objects/3d-printed.usdz" auto-rotate camera-controls background-color="black" exposure="0.5">
+            <model-viewer src="3d-objects/3d-printed.glb" ios-src="3d-objects/3d-printed.usdz" auto-rotate camera-controls background-color="black" exposure="0.5"
+            ar ar-modes="scene-viewer quick-look webxr"
+            ar-scale="auto"
+            ar-placement="floor">
+                <button class="screenshot-btn" slot="ar-button">
+                    Capture AR Photo
+                </button>
                 <div class="ar-instructions" slot="ar-button">
                     <p>1. Position the specimen in your space</p>
                     <p>2. Take a screenshot or photo</p>
                     <p>3. Share on Instagram with #UniversaMorphogenesis</p>
+                    <p>Tag @unapaulogetic</p>
                 </div>
             </model-viewer>
         </div>
 
         <div class="cell">
             <span class="toggle-icon">⛶</span>
-            <model-viewer src="3d-objects/medusa.glb" ios-src="3d-objects/medusa.usdz" auto-rotate camera-controls background-color="black" exposure="0.5">
+            <model-viewer src="3d-objects/medusa.glb" ios-src="3d-objects/medusa.usdz" auto-rotate camera-controls background-color="black" exposure="0.5"
+            ar ar-modes="scene-viewer quick-look webxr"
+            ar-scale="auto"
+            ar-placement="floor">
+                <button class="screenshot-btn" slot="ar-button">
+                    Capture AR Photo
+                </button>
                 <div class="ar-instructions" slot="ar-button">
                     <p>1. Position the specimen in your space</p>
                     <p>2. Take a screenshot or photo</p>
                     <p>3. Share on Instagram with #UniversaMorphogenesis</p>
+                    <p>Tag @unapaulogetic</p>
                 </div>
             </model-viewer>
         </div>
 
         <div class="cell">
             <span class="toggle-icon">⛶</span>
-            <model-viewer src="3d-objects/icetree.glb" ios-src="3d-objects/icetree.usdz" auto-rotate camera-controls background-color="black" exposure="0.5">
+            <model-viewer src="3d-objects/icetree.glb" ios-src="3d-objects/icetree.usdz" auto-rotate camera-controls background-color="black" exposure="0.5"
+            ar ar-modes="scene-viewer quick-look webxr"
+            ar-scale="auto"
+            ar-placement="floor">
+                <button class="screenshot-btn" slot="ar-button">
+                    Capture AR Photo
+                </button>
                 <div class="ar-instructions" slot="ar-button">
                     <p>1. Position the specimen in your space</p>
                     <p>2. Take a screenshot or photo</p>
                     <p>3. Share on Instagram with #UniversaMorphogenesis</p>
+                    <p>Tag @unapaulogetic</p>
                 </div>
             </model-viewer>
         </div>
 
         <div class="cell">
             <span class="toggle-icon">⛶</span>
-            <model-viewer src="3d-objects/weirdflower.glb" ios-src="3d-objects/weirdflower.usdz" auto-rotate camera-controls background-color="black" exposure="0.5">
+            <model-viewer src="3d-objects/weirdflower.glb" ios-src="3d-objects/weirdflower.usdz" auto-rotate camera-controls background-color="black" exposure="0.5"
+            ar ar-modes="scene-viewer quick-look webxr"
+            ar-scale="auto"
+            ar-placement="floor">
+                <button class="screenshot-btn" slot="ar-button">
+                    Capture AR Photo
+                </button>
                 <div class="ar-instructions" slot="ar-button">
                     <p>1. Position the specimen in your space</p>
                     <p>2. Take a screenshot or photo</p>
                     <p>3. Share on Instagram with #UniversaMorphogenesis</p>
+                    <p>Tag @unapaulogetic</p>
                 </div>
             </model-viewer>
         </div>
 
         <div class="cell">
             <span class="toggle-icon">⛶</span>
-            <model-viewer src="3d-objects/phena01.glb" ios-src="3d-objects/phena01.usdz" auto-rotate camera-controls background-color="black" exposure="0.5">
+            <model-viewer src="3d-objects/phena01.glb" ios-src="3d-objects/phena01.usdz" auto-rotate camera-controls background-color="black" exposure="0.5"
+            ar ar-modes="scene-viewer quick-look webxr"
+            ar-scale="auto"
+            ar-placement="floor">
+                <button class="screenshot-btn" slot="ar-button">
+                    Capture AR Photo
+                </button>
                 <div class="ar-instructions" slot="ar-button">
                     <p>1. Position the specimen in your space</p>
                     <p>2. Take a screenshot or photo</p>
                     <p>3. Share on Instagram with #UniversaMorphogenesis</p>
+                    <p>Tag @unapaulogetic</p>
                 </div>
             </model-viewer>
         </div>
 
         <div class="cell">
             <span class="toggle-icon">⛶</span>
-            <model-viewer src="3d-objects/spaghetti.glb" ios-src="3d-objects/spaghetti.usdz" auto-rotate camera-controls background-color="black" exposure="0.5">
+            <model-viewer src="3d-objects/spaghetti.glb" ios-src="3d-objects/spaghetti.usdz" auto-rotate camera-controls background-color="black" exposure="0.5"
+            ar ar-modes="scene-viewer quick-look webxr"
+            ar-scale="auto"
+            ar-placement="floor">
+                <button class="screenshot-btn" slot="ar-button">
+                    Capture AR Photo
+                </button>
                 <div class="ar-instructions" slot="ar-button">
                     <p>1. Position the specimen in your space</p>
                     <p>2. Take a screenshot or photo</p>
                     <p>3. Share on Instagram with #UniversaMorphogenesis</p>
+                    <p>Tag @unapaulogetic</p>
                 </div>
             </model-viewer>
         </div>
 
         <div class="cell">
             <span class="toggle-icon">⛶</span>
-            <model-viewer src="3d-objects/nest.glb" ios-src="3d-objects/nest.usdz" auto-rotate camera-controls background-color="black" exposure="0.5">
+            <model-viewer src="3d-objects/nest.glb" ios-src="3d-objects/nest.usdz" auto-rotate camera-controls background-color="black" exposure="0.5"
+            ar ar-modes="scene-viewer quick-look webxr"
+            ar-scale="auto"
+            ar-placement="floor">
+                <button class="screenshot-btn" slot="ar-button">
+                    Capture AR Photo
+                </button>
                 <div class="ar-instructions" slot="ar-button">
                     <p>1. Position the specimen in your space</p>
                     <p>2. Take a screenshot or photo</p>
                     <p>3. Share on Instagram with #UniversaMorphogenesis</p>
+                    <p>Tag @unapaulogetic</p>
                 </div>
             </model-viewer>
         </div>
 
         <div class="cell">
             <span class="toggle-icon">⛶</span>
-            <model-viewer src="3d-objects/upsideflower.glb" ios-src="3d-objects/upsideflower.usdz" auto-rotate camera-controls background-color="black" exposure="0.5">
+            <model-viewer src="3d-objects/upsideflower.glb" ios-src="3d-objects/upsideflower.usdz" auto-rotate camera-controls background-color="black" exposure="0.5"
+            ar ar-modes="scene-viewer quick-look webxr"
+            ar-scale="auto"
+            ar-placement="floor">
+                <button class="screenshot-btn" slot="ar-button">
+                    Capture AR Photo
+                </button>
                 <div class="ar-instructions" slot="ar-button">
                     <p>1. Position the specimen in your space</p>
                     <p>2. Take a screenshot or photo</p>
                     <p>3. Share on Instagram with #UniversaMorphogenesis</p>
+                    <p>Tag @unapaulogetic</p>
                 </div>
             </model-viewer>
         </div>
 
         <div class="cell">
             <span class="toggle-icon">⛶</span>
-            <model-viewer src="3d-objects/tree1.glb" ios-src="3d-objects/tree1.usdz" auto-rotate camera-controls background-color="black" exposure="0.5">
+            <model-viewer src="3d-objects/tree1.glb" ios-src="3d-objects/tree1.usdz" auto-rotate camera-controls background-color="black" exposure="0.5"
+            ar ar-modes="scene-viewer quick-look webxr"
+            ar-scale="auto"
+            ar-placement="floor">
+                <button class="screenshot-btn" slot="ar-button">
+                    Capture AR Photo
+                </button>
                 <div class="ar-instructions" slot="ar-button">
                     <p>1. Position the specimen in your space</p>
                     <p>2. Take a screenshot or photo</p>
                     <p>3. Share on Instagram with #UniversaMorphogenesis</p>
+                    <p>Tag @unapaulogetic</p>
                 </div>
             </model-viewer>
         </div>
 
         <div class="cell">
             <span class="toggle-icon">⛶</span>
-            <model-viewer src="3d-objects/phena2.glb" ios-src="3d-objects/phena2.usdz" auto-rotate camera-controls background-color="black" exposure="0.5">
+            <model-viewer src="3d-objects/phena2.glb" ios-src="3d-objects/phena2.usdz" auto-rotate camera-controls background-color="black" exposure="0.5"
+            ar ar-modes="scene-viewer quick-look webxr"
+            ar-scale="auto"
+            ar-placement="floor">
+                <button class="screenshot-btn" slot="ar-button">
+                    Capture AR Photo
+                </button>
                 <div class="ar-instructions" slot="ar-button">
                     <p>1. Position the specimen in your space</p>
                     <p>2. Take a screenshot or photo</p>
                     <p>3. Share on Instagram with #UniversaMorphogenesis</p>
+                    <p>Tag @unapaulogetic</p>
                 </div>
             </model-viewer>
         </div>
 
         <div class="cell">
             <span class="toggle-icon">⛶</span>
-            <model-viewer src="3d-objects/rocks.glb" ios-src="3d-objects/rocks.usdz" auto-rotate camera-controls background-color="black" exposure="0.5">
+            <model-viewer src="3d-objects/rocks.glb" ios-src="3d-objects/rocks.usdz" auto-rotate camera-controls background-color="black" exposure="0.5"
+            ar ar-modes="scene-viewer quick-look webxr"
+            ar-scale="auto"
+            ar-placement="floor">
+                <button class="screenshot-btn" slot="ar-button">
+                    Capture AR Photo
+                </button>
                 <div class="ar-instructions" slot="ar-button">
                     <p>1. Position the specimen in your space</p>
                     <p>2. Take a screenshot or photo</p>
                     <p>3. Share on Instagram with #UniversaMorphogenesis</p>
+                    <p>Tag @unapaulogetic</p>
                 </div>
             </model-viewer>
         </div>
 
         <div class="cell">
             <span class="toggle-icon">⛶</span>
-            <model-viewer src="3d-objects/toothpick.glb" ios-src="3d-objects/toothpick.usdz" auto-rotate camera-controls background-color="black" exposure="0.5">
+            <model-viewer src="3d-objects/toothpick.glb" ios-src="3d-objects/toothpick.usdz" auto-rotate camera-controls background-color="black" exposure="0.5"
+            ar ar-modes="scene-viewer quick-look webxr"
+            ar-scale="auto"
+            ar-placement="floor">
+                <button class="screenshot-btn" slot="ar-button">
+                    Capture AR Photo
+                </button>
                 <div class="ar-instructions" slot="ar-button">
                     <p>1. Position the specimen in your space</p>
                     <p>2. Take a screenshot or photo</p>
                     <p>3. Share on Instagram with #UniversaMorphogenesis</p>
+                    <p>Tag @unapaulogetic</p>
                 </div>
             </model-viewer>
         </div>
 
         <div class="cell">
             <span class="toggle-icon">⛶</span>
-            <model-viewer src="3d-objects/pillars4.glb" ios-src="3d-objects/pillars4.usdz" auto-rotate camera-controls background-color="black" exposure="0.5">
+            <model-viewer src="3d-objects/pillars4.glb" ios-src="3d-objects/pillars4.usdz" auto-rotate camera-controls background-color="black" exposure="0.5"
+            ar ar-modes="scene-viewer quick-look webxr"
+            ar-scale="auto"
+            ar-placement="floor">
+                <button class="screenshot-btn" slot="ar-button">
+                    Capture AR Photo
+                </button>
                 <div class="ar-instructions" slot="ar-button">
                     <p>1. Position the specimen in your space</p>
                     <p>2. Take a screenshot or photo</p>
                     <p>3. Share on Instagram with #UniversaMorphogenesis</p>
+                    <p>Tag @unapaulogetic</p>
                 </div>
             </model-viewer>
         </div>
 
         <div class="cell">
             <span class="toggle-icon">⛶</span>
-            <model-viewer src="3d-objects/phena3.glb" ios-src="3d-objects/phena3.usdz" auto-rotate camera-controls background-color="black" exposure="0.5">
+            <model-viewer src="3d-objects/phena3.glb" ios-src="3d-objects/phena3.usdz" auto-rotate camera-controls background-color="black" exposure="0.5"
+            ar ar-modes="scene-viewer quick-look webxr"
+            ar-scale="auto"
+            ar-placement="floor">
+                <button class="screenshot-btn" slot="ar-button">
+                    Capture AR Photo
+                </button>
                 <div class="ar-instructions" slot="ar-button">
                     <p>1. Position the specimen in your space</p>
                     <p>2. Take a screenshot or photo</p>
                     <p>3. Share on Instagram with #UniversaMorphogenesis</p>
+                    <p>Tag @unapaulogetic</p>
                 </div>
             </model-viewer>
         </div>
@@ -423,11 +579,21 @@
         document.querySelectorAll('model-viewer').forEach(viewer => {
             viewer.addEventListener('ar-status-change', (event) => {
                 const screenshotBtn = viewer.querySelector('.screenshot-btn');
+                const instructions = viewer.querySelector('.ar-instructions');
+                
                 if (event.detail.status === 'session-started') {
                     screenshotBtn.style.display = 'block';
+                    instructions.style.display = 'block';
                 } else {
                     screenshotBtn.style.display = 'none';
+                    instructions.style.display = 'none';
                 }
+            });
+
+            // Optional: Add click handler for screenshot button
+            const screenshotBtn = viewer.querySelector('.screenshot-btn');
+            screenshotBtn.addEventListener('click', () => {
+                alert('Take a screenshot now and share it on Instagram with #UniversaMorphogenesis!');
             });
         });
 
