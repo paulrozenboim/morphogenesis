@@ -25,9 +25,10 @@
         .cell {
             border: 1px solid white;
             position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            cursor: pointer;
         }
         model-viewer {
             width: 100%;
@@ -77,27 +78,29 @@
             align-items: center;
             border-radius: 50%;
         }
-        #popup-viewer {
+        #popup-viewer-container {
             width: 100%;
             height: 100%;
             z-index: 1001;
         }
-        .home-dot {
+        #popup-viewer-container model-viewer {
+            width: 100%;
+            height: 100%;
+        }
+        .home-arrow {
             position: absolute;
             top: 20px;
             left: 50%;
             transform: translateX(-50%);
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background-color: white;
+            color: white;
+            text-decoration: none;
+            font-size: 24px;
             transition: transform 0.3s ease;
             z-index: 100;
-            opacity: 1;
         }
         
-        .home-dot:hover {
-            transform: translateX(-50%) scale(1.2);
+        .home-arrow:hover {
+            transform: translateX(-50%) translateY(-5px);
         }
         .credits {
             position: fixed;
@@ -121,118 +124,134 @@
     </style>
 </head>
 <body>
-    <a href="index.html" class="home-dot"></a>
+    <a href="index.html" class="home-arrow">⌃</a>
 
     <div id="gallery">
-        <div class="cell">
-            <span class="toggle-icon">⛶</span>
-            <model-viewer src="3d-objects/coral.glb" ios-src="3d-objects/coral.usdz" auto-rotate camera-controls background-color="black" exposure="0.5"></model-viewer>
+        <div class="cell" 
+             style="background-image: url('images/coral-preview.jpg')"
+             data-model="3d-objects/coral.glb" 
+             data-ios-model="3d-objects/coral.usdz">
         </div>
 
-        <div class="cell">
-            <span class="toggle-icon">⛶</span>
-            <model-viewer src="3d-objects/basis01.glb" ios-src="3d-objects/basis01.usdz" auto-rotate camera-controls background-color="black" exposure="0.5"></model-viewer>
+        <div class="cell" 
+             style="background-image: url('images/basis01-preview.jpg')"
+             data-model="3d-objects/basis01.glb" 
+             data-ios-model="3d-objects/basis01.usdz">
         </div>
 
-        <div class="cell">
-            <span class="toggle-icon">⛶</span>
-            <model-viewer src="3d-objects/tophat.glb" ios-src="3d-objects/tophat.usdz" auto-rotate camera-controls background-color="black" exposure="0.5"></model-viewer>
+        <div class="cell" 
+             style="background-image: url('images/tophat-preview.jpg')"
+             data-model="3d-objects/tophat.glb" 
+             data-ios-model="3d-objects/tophat.usdz">
         </div>
 
-        <div class="cell">
-            <span class="toggle-icon">⛶</span>
-            <model-viewer src="3d-objects/fishball.glb" ios-src="3d-objects/fishball.usdz" auto-rotate camera-controls background-color="black" exposure="0.5"></model-viewer>
+        <div class="cell" 
+             style="background-image: url('images/fishball-preview.jpg')"
+             data-model="3d-objects/fishball.glb" 
+             data-ios-model="3d-objects/fishball.usdz">
         </div>
 
-        <div class="cell">
-            <span class="toggle-icon">⛶</span>
-            <model-viewer src="3d-objects/fibo03.glb" ios-src="3d-objects/fibo03.usdz" auto-rotate camera-controls background-color="black" exposure="0.5"></model-viewer>
+        <div class="cell" 
+             style="background-image: url('images/fibo03-preview.jpg')"
+             data-model="3d-objects/fibo03.glb" 
+             data-ios-model="3d-objects/fibo03.usdz">
         </div>
         
-        <div class="cell">
-            <span class="toggle-icon">⛶</span>
-            <model-viewer src="3d-objects/balloon.glb" ios-src="3d-objects/balloon.usdz" auto-rotate camera-controls background-color="black" exposure="0.5"></model-viewer>
+        <div class="cell" 
+             style="background-image: url('images/balloon-preview.jpg')"
+             data-model="3d-objects/balloon.glb" 
+             data-ios-model="3d-objects/balloon.usdz">
         </div>
 
-        <div class="cell">
-            <span class="toggle-icon">⛶</span>
-            <model-viewer src="3d-objects/3d-printed.glb" ios-src="3d-objects/3d-printed.usdz" auto-rotate camera-controls background-color="black" exposure="0.5"></model-viewer>
+        <div class="cell" 
+             style="background-image: url('images/3d-printed-preview.jpg')"
+             data-model="3d-objects/3d-printed.glb" 
+             data-ios-model="3d-objects/3d-printed.usdz">
         </div>
 
-        <div class="cell">
-            <span class="toggle-icon">⛶</span>
-            <model-viewer src="3d-objects/medusa.glb" ios-src="3d-objects/medusa.usdz" auto-rotate camera-controls background-color="black" exposure="0.5"></model-viewer>
+        <div class="cell" 
+             style="background-image: url('images/medusa-preview.jpg')"
+             data-model="3d-objects/medusa.glb" 
+             data-ios-model="3d-objects/medusa.usdz">
         </div>
 
-        <div class="cell">
-            <span class="toggle-icon">⛶</span>
-            <model-viewer src="3d-objects/icetree.glb" ios-src="3d-objects/icetree.usdz" auto-rotate camera-controls background-color="black" exposure="0.5"></model-viewer>
+        <div class="cell" 
+             style="background-image: url('images/icetree-preview.jpg')"
+             data-model="3d-objects/icetree.glb" 
+             data-ios-model="3d-objects/icetree.usdz">
         </div>
 
-        <div class="cell">
-            <span class="toggle-icon">⛶</span>
-            <model-viewer src="3d-objects/weirdflower.glb" ios-src="3d-objects/weirdflower.usdz" auto-rotate camera-controls background-color="black" exposure="0.5"></model-viewer>
+        <div class="cell" 
+             style="background-image: url('images/weirdflower-preview.jpg')"
+             data-model="3d-objects/weirdflower.glb" 
+             data-ios-model="3d-objects/weirdflower.usdz">
         </div>
 
-        <div class="cell">
-            <span class="toggle-icon">⛶</span>
-            <model-viewer src="3d-objects/phena01.glb" ios-src="3d-objects/phena01.usdz" auto-rotate camera-controls background-color="black" exposure="0.5"></model-viewer>
+        <div class="cell" 
+             style="background-image: url('images/phena01-preview.jpg')"
+             data-model="3d-objects/phena01.glb" 
+             data-ios-model="3d-objects/phena01.usdz">
         </div>
 
-        <div class="cell">
-            <span class="toggle-icon">⛶</span>
-            <model-viewer src="3d-objects/spaghetti.glb" ios-src="3d-objects/spaghetti.usdz" auto-rotate camera-controls background-color="black" exposure="0.5"></model-viewer>
+        <div class="cell" 
+             style="background-image: url('images/spaghetti-preview.jpg')"
+             data-model="3d-objects/spaghetti.glb" 
+             data-ios-model="3d-objects/spaghetti.usdz">
         </div>
 
-        <div class="cell">
-            <span class="toggle-icon">⛶</span>
-            <model-viewer src="3d-objects/nest.glb" ios-src="3d-objects/nest.usdz" auto-rotate camera-controls background-color="black" exposure="0.5"></model-viewer>
+        <div class="cell" 
+             style="background-image: url('images/nest-preview.jpg')"
+             data-model="3d-objects/nest.glb" 
+             data-ios-model="3d-objects/nest.usdz">
         </div>
 
-        <div class="cell">
-            <span class="toggle-icon">⛶</span>
-            <model-viewer src="3d-objects/upsideflower.glb" ios-src="3d-objects/upsideflower.usdz" auto-rotate camera-controls background-color="black" exposure="0.5"></model-viewer>
+        <div class="cell" 
+             style="background-image: url('images/upsideflower-preview.jpg')"
+             data-model="3d-objects/upsideflower.glb" 
+             data-ios-model="3d-objects/upsideflower.usdz">
         </div>
 
-        <div class="cell">
-            <span class="toggle-icon">⛶</span>
-            <model-viewer src="3d-objects/tree1.glb" ios-src="3d-objects/tree1.usdz" auto-rotate camera-controls background-color="black" exposure="0.5"></model-viewer>
+        <div class="cell" 
+             style="background-image: url('images/tree1-preview.jpg')"
+             data-model="3d-objects/tree1.glb" 
+             data-ios-model="3d-objects/tree1.usdz">
         </div>
 
-        <div class="cell">
-            <span class="toggle-icon">⛶</span>
-            <model-viewer src="3d-objects/phena2.glb" ios-src="3d-objects/phena2.usdz" auto-rotate camera-controls background-color="black" exposure="0.5"></model-viewer>
+        <div class="cell" 
+             style="background-image: url('images/phena2-preview.jpg')"
+             data-model="3d-objects/phena2.glb" 
+             data-ios-model="3d-objects/phena2.usdz">
         </div>
 
-        <div class="cell">
-            <span class="toggle-icon">⛶</span>
-            <model-viewer src="3d-objects/rocks.glb" ios-src="3d-objects/rocks.usdz" auto-rotate camera-controls background-color="black" exposure="0.5"></model-viewer>
+        <div class="cell" 
+             style="background-image: url('images/rocks-preview.jpg')"
+             data-model="3d-objects/rocks.glb" 
+             data-ios-model="3d-objects/rocks.usdz">
         </div>
 
-        <div class="cell">
-            <span class="toggle-icon">⛶</span>
-            <model-viewer src="3d-objects/toothpick.glb" ios-src="3d-objects/toothpick.usdz" auto-rotate camera-controls background-color="black" exposure="0.5"></model-viewer>
+        <div class="cell" 
+             style="background-image: url('images/toothpick-preview.jpg')"
+             data-model="3d-objects/toothpick.glb" 
+             data-ios-model="3d-objects/toothpick.usdz">
         </div>
 
-        <div class="cell">
-            <span class="toggle-icon">⛶</span>
-            <model-viewer src="3d-objects/pillars4.glb" ios-src="3d-objects/pillars4.usdz" auto-rotate camera-controls background-color="black" exposure="0.5"></model-viewer>
+        <div class="cell" 
+             style="background-image: url('images/pillars4-preview.jpg')"
+             data-model="3d-objects/pillars4.glb" 
+             data-ios-model="3d-objects/pillars4.usdz">
         </div>
 
-        <div class="cell">
-            <span class="toggle-icon">⛶</span>
-            <model-viewer src="3d-objects/phena3.glb" ios-src="3d-objects/phena3.usdz" auto-rotate camera-controls background-color="black" exposure="0.5"></model-viewer>
+        <div class="cell" 
+             style="background-image: url('images/phena3-preview.jpg')"
+             data-model="3d-objects/phena3.glb" 
+             data-ios-model="3d-objects/phena3.usdz">
         </div>
     </div>
 
     <div class="popup">
         <div class="popup-content">
             <span class="close-popup">&times;</span>
-            <model-viewer id="popup-viewer" auto-rotate camera-controls background-color="black" exposure="0.5"
-            ar ar-modes="scene-viewer quick-look webxr"
-            ar-scale="auto"
-            ar-placement="floor">
-            </model-viewer>
+            <div id="popup-viewer-container"></div>
         </div>
     </div>
 
@@ -243,26 +262,47 @@
     <script>
         const gallery = document.getElementById('gallery');
         const popup = document.querySelector('.popup');
-        const popupViewer = document.getElementById('popup-viewer');
+        const popupContainer = document.getElementById('popup-viewer-container');
         const closePopup = document.querySelector('.close-popup');
 
+        function createModelViewer(modelSrc, iosSrc) {
+            const viewer = document.createElement('model-viewer');
+            viewer.id = 'popup-viewer';
+            viewer.setAttribute('auto-rotate', '');
+            viewer.setAttribute('camera-controls', '');
+            viewer.setAttribute('background-color', 'black');
+            viewer.setAttribute('exposure', '0.5');
+            viewer.setAttribute('ar', '');
+            viewer.setAttribute('ar-modes', 'scene-viewer quick-look webxr');
+            viewer.setAttribute('ar-scale', 'auto');
+            viewer.setAttribute('ar-placement', 'floor');
+            viewer.setAttribute('src', modelSrc);
+            viewer.setAttribute('ios-src', iosSrc);
+            return viewer;
+        }
+
+        function closeModelViewer() {
+            popup.style.display = 'none';
+            popupContainer.innerHTML = '';
+        }
+
         gallery.addEventListener('click', (e) => {
-            if (e.target.classList.contains('toggle-icon')) {
-                const modelViewer = e.target.nextElementSibling;
-                popupViewer.src = modelViewer.src;
-                popupViewer.iosSrc = modelViewer.iosSrc;
+            const cell = e.target.closest('.cell');
+            if (cell) {
+                const viewer = createModelViewer(
+                    cell.dataset.model,
+                    cell.dataset.iosModel
+                );
+                popupContainer.appendChild(viewer);
                 popup.style.display = 'block';
             }
         });
 
-        closePopup.addEventListener('click', () => {
-            popup.style.display = 'none';
-        });
+        closePopup.addEventListener('click', closeModelViewer);
 
-        // Close popup when clicking outside the model viewer
         popup.addEventListener('click', (e) => {
             if (e.target === popup) {
-                popup.style.display = 'none';
+                closeModelViewer();
             }
         });
     </script>

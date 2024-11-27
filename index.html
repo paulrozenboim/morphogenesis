@@ -57,24 +57,23 @@
             font-weight: normal;
             opacity: 0.8;
         }
-        .down-arrow {
-        position: absolute;
-        bottom: 40px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 10px;
-        height: 10px;
-        background-color: white;
-        border-radius: 50%;
-        cursor: pointer;
-        opacity: 1;
-        transition: transform 0.3s ease;
-    }
-    .down-arrow:hover {
-        transform: translateX(-50%) scale(1.2);
-    }
+        .enter-link {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            text-decoration: none;
+            font-family: 'Courier New', Courier, monospace;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
 
-    .credits {
+        .enter-link:hover {
+            opacity: 0.7;
+        }
+
+        .credits {
             position: fixed;
             bottom: 10px;
             right: 20px;
@@ -114,10 +113,11 @@
         </a>
     </div>
 
-    <a href="gallery.html" class="down-arrow"></a>
+    <a href="gallery.html" class="enter-link">ENTER</a>
 
     <script>
-        const downArrow = document.querySelector('.down-arrow');
+        const planetContainer = document.getElementById('planet-container');
+        const enterLink = document.querySelector('.enter-link');
 
         function navigateTo(event, url) {
             event.preventDefault();
@@ -125,7 +125,7 @@
         }
 
         planetContainer.querySelector('a').onclick = (e) => navigateTo(e, 'gallery.html');
-        downArrow.onclick = (e) => navigateTo(e, 'gallery.html');
+        enterLink.onclick = (e) => navigateTo(e, 'gallery.html');
     </script>
 
     <div class="credits">
